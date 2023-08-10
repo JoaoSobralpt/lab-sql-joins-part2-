@@ -73,7 +73,9 @@ USING(store_id)
 WHERE f.title = 'Academy Dinosaur' AND s.store_id = '1';
 
 -- 8 List of ALL film titles and if they are available in inventory.
-SELECT DISTINCT f.title, i.inventory_id, s.store_id
+SELECT DISTINCT f.title, s.store_id,
+CASE
+WHEN i.inventory_id IS NULL THEN 'Film not available' ELSE 'Available' END AS Availability
 FROM sakila.film f
 LEFT JOIN sakila.inventory i
 USING(film_id)
